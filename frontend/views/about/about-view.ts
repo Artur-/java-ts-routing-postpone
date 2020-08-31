@@ -14,7 +14,7 @@ export class AboutView extends LitElement {
   render() {
     return html`
       <br />
-      Content placeholder
+      About view
     `;
   }
 }

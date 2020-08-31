@@ -1,5 +1,6 @@
 import { Flow } from "@vaadin/flow-frontend/Flow";
 import { Router } from "@vaadin/router";
+import { log } from "./views/main/main-view";
 
 import "./global-styles";
 
@@ -14,12 +15,14 @@ const routes = [
     component: "main-view",
     action: async () => {
       await import("./views/main/main-view");
+      log("main view client side router action invoked");
     },
     children: [
       {
         path: "about",
         component: "about-view",
         action: async () => {
+          log("about view client side router action invoked");
           await import("./views/about/about-view");
         },
       },

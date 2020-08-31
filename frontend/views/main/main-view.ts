@@ -13,6 +13,14 @@ interface MenuTab {
   route: string;
   name: string;
 }
+export const log = (_msg: string) => {
+  const mainView = document.querySelector("main-view") as MainView;
+  if (mainView) {
+    mainView.log(_msg);
+  } else {
+    setTimeout(() => log(_msg), 10);
+  }
+};
 
 @customElement("main-view")
 export class MainView extends LitElement {
@@ -24,6 +32,8 @@ export class MainView extends LitElement {
   ];
 
   @property({ type: String }) projectName = "";
+  @property({ type: Array })
+  msgs: string[] = [];
 
   static get styles() {
     return [
@@ -104,6 +114,10 @@ export class MainView extends LitElement {
     ];
   }
 
+  log(_msg: string) {
+    this.msgs = [...this.msgs, _msg];
+  }
+
   render() {
     return html`
       <vaadin-app-layout primary-section="drawer">
@@ -135,6 +149,7 @@ export class MainView extends LitElement {
               `
             )}
           </vaadin-tabs>
+          ${this.msgs.map((msg) => html`<div>${msg}</div>`)}
         </div>
         <slot></slot>
       </vaadin-app-layout>
