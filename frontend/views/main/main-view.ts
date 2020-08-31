@@ -28,6 +28,7 @@ export class MainView extends LitElement {
 
   @property({ type: Array }) menuTabs: MenuTab[] = [
     { route: "hello", name: "Hello World" },
+    { route: "anotherjava", name: "Another Java view" },
     { route: "about", name: "About" },
   ];
 
