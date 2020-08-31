@@ -1,12 +1,12 @@
-import { css, customElement, html, LitElement, property } from 'lit-element';
-import '@vaadin/vaadin-app-layout/theme/lumo/vaadin-app-layout';
+import { css, customElement, html, LitElement, property } from "lit-element";
+import "@vaadin/vaadin-app-layout/theme/lumo/vaadin-app-layout";
 // @ts-ignore
-import { AppLayoutElement } from '@vaadin/vaadin-app-layout/src/vaadin-app-layout';
-import '@vaadin/vaadin-app-layout/vaadin-drawer-toggle';
-import '@vaadin/vaadin-tabs/theme/lumo/vaadin-tab';
-import '@vaadin/vaadin-tabs/theme/lumo/vaadin-tabs';
-import { CSSModule } from '@vaadin/flow-frontend/css-utils';
-import { router } from '../../index';
+import { AppLayoutElement } from "@vaadin/vaadin-app-layout/src/vaadin-app-layout";
+import "@vaadin/vaadin-app-layout/vaadin-drawer-toggle";
+import "@vaadin/vaadin-tabs/theme/lumo/vaadin-tab";
+import "@vaadin/vaadin-tabs/theme/lumo/vaadin-tabs";
+import { CSSModule } from "@vaadin/flow-frontend/css-utils";
+import { router } from "../../index";
 
 // Rename to something more appropriate.
 interface MenuTab {
@@ -14,22 +14,22 @@ interface MenuTab {
   name: string;
 }
 
-@customElement('main-view')
+@customElement("main-view")
 export class MainView extends LitElement {
   @property({ type: Object }) location = router.location;
 
   @property({ type: Array }) menuTabs: MenuTab[] = [
-    {route: 'hello', name: 'Hello World'},
-    {route: 'about', name: 'About'},
+    { route: "hello", name: "Hello World" },
+    { route: "about", name: "About" },
   ];
 
-  @property({ type: String }) projectName = '';
+  @property({ type: String }) projectName = "";
 
   static get styles() {
     return [
-      CSSModule('lumo-typography'),
-      CSSModule('lumo-color'),
-      CSSModule('app-layout'),
+      CSSModule("lumo-typography"),
+      CSSModule("lumo-color"),
+      CSSModule("app-layout"),
       css`
         :host {
           display: block;
@@ -58,7 +58,7 @@ export class MainView extends LitElement {
           background-color: var(--lumo-contrast);
         }
 
-        vaadin-app-layout[dir='rtl'] header img {
+        vaadin-app-layout[dir="rtl"] header img {
           margin-left: var(--lumo-space-m);
           margin-right: auto;
         }
@@ -119,11 +119,18 @@ export class MainView extends LitElement {
             <span>${this.projectName}</span>
           </div>
           <hr />
-          <vaadin-tabs orientation="vertical" theme="minimal" id="tabs" .selected="${this.getIndexOfSelectedTab()}">
+          <vaadin-tabs
+            orientation="vertical"
+            theme="minimal"
+            id="tabs"
+            .selected="${this.getIndexOfSelectedTab()}"
+          >
             ${this.menuTabs.map(
               (menuTab) => html`
                 <vaadin-tab>
-                  <a href="${router.urlForPath(menuTab.route)}" tabindex="-1">${menuTab.name}</a>
+                  <a href="${router.urlForPath(menuTab.route)}" tabindex="-1"
+                    >${menuTab.name}</a
+                  >
                 </vaadin-tab>
               `
             )}
@@ -141,13 +148,19 @@ export class MainView extends LitElement {
 
   connectedCallback() {
     super.connectedCallback();
-    window.addEventListener('vaadin-router-location-changed', this._routerLocationChanged);
-    this.projectName = 'My Project';
+    window.addEventListener(
+      "vaadin-router-location-changed",
+      this._routerLocationChanged
+    );
+    this.projectName = "My Project";
   }
 
   disconnectedCallback() {
     super.disconnectedCallback();
-    window.removeEventListener('vaadin-router-location-changed', this._routerLocationChanged);
+    window.removeEventListener(
+      "vaadin-router-location-changed",
+      this._routerLocationChanged
+    );
   }
 
   private isCurrentLocation(route: string): boolean {
@@ -155,10 +168,12 @@ export class MainView extends LitElement {
   }
 
   private getIndexOfSelectedTab(): number {
-    const index = this.menuTabs.findIndex((menuTab) => this.isCurrentLocation(menuTab.route));
+    const index = this.menuTabs.findIndex((menuTab) =>
+      this.isCurrentLocation(menuTab.route)
+    );
 
     // Select first tab if there is no tab for home in the menu
-    if (index === -1 && this.isCurrentLocation('')) {
+    if (index === -1 && this.isCurrentLocation("")) {
       return 0;
     }
 
@@ -166,12 +181,14 @@ export class MainView extends LitElement {
   }
 
   private getSelectedTabName(menuTabs: MenuTab[]): string {
-    const currentTab = menuTabs.find((menuTab) => this.isCurrentLocation(menuTab.route));
-    let tabName = '';
+    const currentTab = menuTabs.find((menuTab) =>
+      this.isCurrentLocation(menuTab.route)
+    );
+    let tabName = "";
     if (currentTab) {
       tabName = currentTab.name;
     } else {
-      tabName = 'Hello World';
+      tabName = "Hello World";
     }
     return tabName;
   }

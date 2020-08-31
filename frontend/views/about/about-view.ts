@@ -1,6 +1,6 @@
-import { LitElement, html, css, customElement } from 'lit-element';
+import { LitElement, html, css, customElement } from "lit-element";
 
-@customElement('about-view')
+@customElement("about-view")
 export class AboutView extends LitElement {
   static get styles() {
     return css`

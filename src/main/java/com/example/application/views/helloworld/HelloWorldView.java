@@ -10,7 +10,6 @@ import com.vaadin.flow.router.PageTitle;
 import com.vaadin.flow.router.Route;
 import com.vaadin.flow.router.RouteAlias;
 
-
 @Route(value = "hello")
 @RouteAlias(value = "")
 @PageTitle("Hello World")
@@ -26,7 +25,7 @@ public class HelloWorldView extends HorizontalLayout {
         sayHello = new Button("Say hello");
         add(name, sayHello);
         setVerticalComponentAlignment(Alignment.END, name, sayHello);
-        sayHello.addClickListener( e-> {
+        sayHello.addClickListener(e -> {
             Notification.show("Hello " + name.getValue());
         });
     }
